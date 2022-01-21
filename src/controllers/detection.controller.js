@@ -89,7 +89,7 @@ exports.create = (req, res) => {
     product_detection: req.body.product_detection
   });
 
-  // Save Bill in the database
+  // Save Data in the database
   newData
     .save(newData)
     .then(data => {

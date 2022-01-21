@@ -11,7 +11,7 @@ const detectionSchema = new Schema({
   id: String,
   rack_id: String,
   date: String,
-  status: String,
+  status: Number,
   product_detection: [prod_detection]
 })
 
