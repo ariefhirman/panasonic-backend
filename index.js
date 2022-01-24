@@ -6,6 +6,7 @@ const app = express();
 const multer = require("multer");
 const path = require("path");
 const fs = require('fs-extra');
+require("dotenv").config();
 // const path = "mongodb+srv://username:password@ipaddress:port/dbname?retryWrites=true&w=majority";
 
 var corsOptions = {
@@ -25,7 +26,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./src/models");
-// const Role = db.role;
 
 // db.mongoose
 //   .connect(path, {
