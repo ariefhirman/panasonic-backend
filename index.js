@@ -17,6 +17,8 @@ var corsOptions = {
   maxAge: 600
 };
 app.options('*', cors(corsOptions));
+
+app.use(express.static('public'))
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -54,48 +56,52 @@ db.mongoose
   process.exit();
 });
 
-// Multer Storage
-var storage = multer.diskStorage({ 
-  destination: (req, file, cb) => {
-    cb(null, '../tempDir/')
+const storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, './uploads');
   },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname)
+  filename: function (req, file, callback) {
+    callback(null, file.originalname);
+    // + path.extname(file.originalname)
   }
 });
 
 var upload = multer({ 
-  storage: storage
+    storage: storage
+})
+
+app.post('/api/v1/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false
+    });
+
+  } else {
+    let date = getDateNow();
+    var fileName = req.file.filename;
+    const filesDir = './public/images/' + req.body.racks + '/' + date;
+    console.log('file received');
+    fs.move('./uploads/' + fileName, filesDir + '/' + fileName, function (err) {
+        if (err) {
+            return console.error(err);
+        }
+    });
+    return res.send({
+      success: true
+    })
+  }
 });
-
-app.post('/testUpload', upload.single('file'), (req, res) => {
-  if (err) {
-      res.json({});
-      return;
-  }
-
-  var dir = JSON.parse(req.body.data).directory;
-  var fileName = req.file.filename;
-
-  fs.move('../tempDir/' + fileName, '../images/' + dir + '/' + fileName, function (err) {
-      if (err) {
-          return console.error(err);
-      }
-
-      res.json({});
-  });
-  }
-);
 
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Testing for User JWT API." });
 });
 
+app.use('/static', express.static('public'))
+
 require('./src/routes/auth.routes')(app);
 require('./src/routes/detection.routes')(app);
-// require('./app/routes/node.routes')(app);
-// require('./app/routes/map.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -103,38 +109,21 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-// function initial() {
-//     Role.estimatedDocumentCount((err, count) => {
-//       if (!err && count === 0) {
-//         new Role({
-//           name: "user"
-//         }).save(err => {
-//           if (err) {
-//             console.log("error", err);
-//           }
+function getDateNow() {
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth()+1; 
+  let yyyy = today.getFullYear();
   
-//           console.log("added 'user' to roles collection");
-//         });
-  
-//         new Role({
-//           name: "moderator"
-//         }).save(err => {
-//           if (err) {
-//             console.log("error", err);
-//           }
-  
-//           console.log("added 'moderator' to roles collection");
-//         });
-  
-//         new Role({
-//           name: "admin"
-//         }).save(err => {
-//           if (err) {
-//             console.log("error", err);
-//           }
-  
-//           console.log("added 'admin' to roles collection");
-//         });
-//       }
-//     });
-//   }
+  if(dd<10) 
+  {
+      dd='0'+dd;
+  } 
+
+  if(mm<10) 
+  {
+      mm='0'+mm;
+  }
+
+  return dd + '-' + mm + '-' + yyyy
+}

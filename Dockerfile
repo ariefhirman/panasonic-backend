@@ -1,7 +1,7 @@
 FROM node:14
 
-WORKDIR /project-warehouse
+WORKDIR /panasonic-backend
 COPY package.json .
-RUN npm install
+RUN npm run install
 COPY . .
-CMD npm start
+CMD npm run start
