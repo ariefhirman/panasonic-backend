@@ -5,6 +5,7 @@ const {
 } = process.env;
 
 module.exports = {
+  // use this if you aren't using Docker container
   // HOST: "localhost",
   // PORT: 27017,
   // DB: "psg-warehouse"

@@ -7,5 +7,6 @@ db.mongoose = mongoose;
 
 db.user = require("./user.model");
 db.data = require("./detection.model");
+db.config = require("./mission.model");
 
 module.exports = db;
