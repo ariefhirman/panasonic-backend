@@ -15,6 +15,8 @@ module.exports = function(app) {
   
   // get all data
   app.get("/api/v1/detection", controller.findAll)
+  // get data by missionID
+  app.get("/api/v1/detection/status", controller.findByMissionID)
   // get data based on rack
   app.get("/api/v1/detection/racks", controller.findByRacks)
   // get data based on date
