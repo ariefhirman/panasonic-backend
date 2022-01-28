@@ -12,6 +12,27 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findByMissionID = (req, res) => {  
+    Data.find({ mission_id: req.body.mission_id })
+    .then(data => {
+        if(!data) {
+            return res.status(404).send({
+                message: "Mission not found: " + req.body.mission_id
+            });            
+        }
+        res.send(data);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Mission not found with mission id " + req.body.mission_id
+            });                
+        }
+        return res.status(500).send({
+            message: "Error retrieving Data with mission id " + req.body.mission_id
+        });
+    });
+  };
+
 exports.findByRacks = (req, res) => {  
   Data.find({ rack_id: req.body.rack_id })
   .then(data => {
