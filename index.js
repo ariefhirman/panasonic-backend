@@ -102,6 +102,7 @@ app.use('/static', express.static('public'))
 
 require('./src/routes/auth.routes')(app);
 require('./src/routes/detection.routes')(app);
+require('./src/routes/mission.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

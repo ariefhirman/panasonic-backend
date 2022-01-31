@@ -86,7 +86,7 @@ exports.create = (req, res) => {
     mission_name: req.body.mission_name,
     drone_name: req.body.drone_name,
     start_point: req.body.start_point,
-    end_point: req.body.end_pWoint,
+    end_point: req.body.end_point,
     mission_speed: req.body.mission_speed,
     max_altitude: req.body.max_altitude,
     sweep_config: req.body.sweep_config,

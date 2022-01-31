@@ -17,7 +17,7 @@ const missionConfigSchema = new Schema({
   max_altitude: Number,
   sweep_config: [Number],
   rack_size: [rackSize]
-})
+}, { id: false })
 
 const MissionConfig = mongoose.model(
   "Mission",
