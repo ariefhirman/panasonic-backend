@@ -15,6 +15,7 @@ const missionConfigSchema = new Schema({
   end_point: String,
   mission_speed: Number,
   max_altitude: Number,
+  rack_ids: [String],
   sweep_config: [Number],
   rack_size: [rackSize]
 }, { id: false })
