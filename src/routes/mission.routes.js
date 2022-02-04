@@ -12,7 +12,6 @@ module.exports = function(app) {
 
   // post mission config
   app.post("/api/v1/config",controller.create);
-  
   // get all data
   app.get("/api/v1/config", controller.findAll)
   // get the latest config
