@@ -96,6 +96,47 @@ exports.findByDate = (req, res) => {
   });
 };
 
+exports.deleteByRacks = (req, res) => {
+  const id = req.body.rack_id;
+  Data.deleteMany({ rack_id:id })
+    .then(data => {
+    if (!data) {
+        res.status(404).send({
+        message: `Cannot delete data with rack id=${id}`
+        });
+    } else {
+        res.send({
+        message: "Data was deleted successfully!"
+        });
+    }
+    })
+    .catch(err => {
+    res.status(500).send({
+        message: "Could not delete data with rack id = " + id
+    });
+  });
+};
+
+exports.deleteAllData = (req, res) => {
+  Data.deleteMany()
+    .then(data => {
+    if (!data) {
+        res.status(404).send({
+        message: `Cannot delete data`
+        });
+    } else {
+        res.send({
+          message: "All data was deleted successfully!"
+        });
+    }
+    })
+    .catch(err => {
+    res.status(500).send({
+        message: "Could not delete data"
+    });
+  });
+};
+
 exports.create = (req, res) => {
   if (!req.body.id) {
     res.status(400).send({ message: "Content can not be empty!" });

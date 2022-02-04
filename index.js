@@ -81,7 +81,17 @@ app.post('/api/v1/upload', upload.single('file'), (req, res) => {
     let date = getDateNow();
     var fileName = req.file.filename;
     const filesDir = './public/images/' + req.body.racks + '/' + date;
-    console.log('file received');
+    // console.log('file received');
+    
+    if (fs.existsSync(filesDir + '/' + fileName)) {
+      fs.unlink(filesDir + '/' + fileName, (err) => {
+          if (err) {
+              console.log(err);
+          }
+          // console.log('deleted');
+      })
+    }
+    
     fs.move('./uploads/' + fileName, filesDir + '/' + fileName, function (err) {
         if (err) {
             return console.error(err);

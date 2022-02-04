@@ -23,4 +23,8 @@ module.exports = function(app) {
   app.get("/api/v1/detection/dates", controller.findByDate)
   // get data based on status
   app.get("/api/v1/detection/status", controller.findByStatus)
+  // delete data based on racks
+  app.delete("/api/v1/detection/racks", controller.deleteByRacks)
+  // get all data
+  app.delete("/api/v1/detection", controller.deleteAllData)
 };
