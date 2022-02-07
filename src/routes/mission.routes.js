@@ -17,5 +17,5 @@ module.exports = function(app) {
   // get the latest config
   app.get("/api/v1/config/latest", controller.findLatest)
   // get config based on mission ID
-  app.get("/api/v1/config:id", controller.findByID)
+  app.get("/api/v1/config/:id", controller.findByID)
 };

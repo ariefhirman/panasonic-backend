@@ -18,11 +18,11 @@ module.exports = function(app) {
   // get data by missionID
   app.get("/api/v1/detection/mission", controller.findByMissionID)
   // get data based on rack
-  app.get("/api/v1/detection/racks", controller.findByRacks)
+  app.get("/api/v1/detection/racks/:rack_id", controller.findByRacks)
   // get data based on date
-  app.get("/api/v1/detection/dates", controller.findByDate)
+  app.get("/api/v1/detection/dates/:date", controller.findByDate)
   // get data based on status
-  app.get("/api/v1/detection/status", controller.findByStatus)
+  app.get("/api/v1/detection/status/:status_detection", controller.findByStatus)
   // delete data based on racks
   app.delete("/api/v1/detection/racks", controller.deleteByRacks)
   // get all data

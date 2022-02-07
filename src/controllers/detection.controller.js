@@ -1,10 +1,12 @@
 const db = require("../models");
 const Data = db.data;
+const handler = require("../handler/detection.handler");
 
 exports.findAll = (req, res) => {
-  Data.find()
+  Data.find().lean()
     .then(data => {
-        res.send(data);
+        let parsedData = handler.parseDetectionData(data)
+        res.send(parsedData);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving notes."
@@ -34,64 +36,64 @@ exports.findByMissionID = (req, res) => {
 };
 
 exports.findByRacks = (req, res) => {  
-  Data.find({ rack_id: req.body.rack_id })
+  Data.find({ rack_id: req.params.rack_id })
   .then(data => {
       if(!data) {
           return res.status(404).send({
-              message: "Rack not found " + req.body.rack_id
+              message: "Rack not found " + req.params.rack_id
           });            
       }
       res.send(data);
   }).catch(err => {
       if(err.kind === 'ObjectId') {
           return res.status(404).send({
-              message: "Rack not found with id " + req.body.rack_id
+              message: "Rack not found with id " + req.params.rack_id
           });                
       }
       return res.status(500).send({
-          message: "Error retrieving Rack with id " + req.body.rack_id
+          message: "Error retrieving Rack with id " + req.params.rack_id
       });
   });
 };
 
 exports.findByStatus = (req, res) => {  
-  Data.find({ status: req.body.status })
+  Data.find({ status: req.params.status_detection })
   .then(data => {
       if(!data) {
           return res.status(404).send({
-              message: "Not found: " + req.body.status
+              message: "Not found: " + req.params.status
           });            
       }
       res.send(data);
   }).catch(err => {
       if(err.kind === 'ObjectId') {
           return res.status(404).send({
-              message: "Not found: " + req.body.status
+              message: "Not found: " + req.params.status
           });                
       }
       return res.status(500).send({
-          message: "Error retrieving data with status: " + req.body.status
+          message: "Error retrieving data with status: " + req.params.status
       });
   });
 };
 
 exports.findByDate = (req, res) => {  
-  Data.find({ date: req.body.date })
+  Data.find({ date: req.params.date })
   .then(data => {
       if(!data) {
           return res.status(404).send({
-              message: "Not found: " + req.body.date
+              message: "Not found: " + req.params.date
           });            
       }
       res.send(data);
   }).catch(err => {
       if(err.kind === 'ObjectId') {
           return res.status(404).send({
-              message: "Not found: " + req.body.date
+              message: "Not found: " + req.params.date
           });                
       }
       return res.status(500).send({
-          message: "Error retrieving data with date: " + req.body.date
+          message: "Error retrieving data with date: " + req.params.date
       });
   });
 };

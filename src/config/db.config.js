@@ -6,10 +6,10 @@ const {
 
 module.exports = {
   // use this if you aren't using Docker container
-  // HOST: "localhost",
-  // PORT: 27017,
-  // DB: "psg-warehouse"
-  HOST: DB_HOST,
-  PORT: DB_PORT,
-  DB: DB_NAME
+  HOST: "localhost",
+  PORT: 27017,
+  DB: "psg-warehouse"
+  // HOST: DB_HOST,
+  // PORT: DB_PORT,
+  // DB: DB_NAME
 };
