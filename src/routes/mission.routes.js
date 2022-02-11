@@ -16,6 +16,10 @@ module.exports = function(app) {
   app.get("/api/v1/config", controller.findAll)
   // get the latest config
   app.get("/api/v1/config/latest", controller.findLatest)
+  // get several latest config
+  app.get("/api/v1/config/latest/:no", controller.findLatestByParam)
   // get config based on mission ID
   app.get("/api/v1/config/:id", controller.findByID)
+  // delete all data
+  app.delete("/api/v1/config", controller.deleteAllData)
 };

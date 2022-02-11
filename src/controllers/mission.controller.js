@@ -1,3 +1,4 @@
+const { config } = require("../models");
 const db = require("../models");
 const Config = db.config;
 
@@ -71,6 +72,26 @@ exports.findLatestByParam = (req, res) => {
     }
     return res.status(500).send({
         message: "Error retrieving Config"
+    });
+  });
+};
+
+exports.deleteAllData = (req, res) => {
+  config.deleteMany()
+    .then(data => {
+    if (!data) {
+        res.status(404).send({
+        message: `Cannot delete data`
+        });
+    } else {
+        res.send({
+          message: "All data was deleted successfully!"
+        });
+    }
+    })
+    .catch(err => {
+    res.status(500).send({
+        message: "Could not delete data"
     });
   });
 };

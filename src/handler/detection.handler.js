@@ -9,10 +9,10 @@ exports.parseDetectionData = (data) => {
       element["status"] = newData[i].status;
       return element;
     });
-    delete newData[i].id;
-    delete newData[i].rack_id;
+    // delete newData[i].id;
+    // delete newData[i].rack_id;
     delete newData[i].date;
-    delete newData[i].status;
+    // delete newData[i].status;
   }
   // console.log(newData[0].product_detection);
   return newData;
