@@ -110,6 +110,8 @@ exports.create = (req, res) => {
     end_point: req.body.end_point,
     mission_speed: req.body.mission_speed,
     max_altitude: req.body.max_altitude,
+    min_altitude: req.body.min_altitude,
+    orientation: req.body.orientation,
     rack_ids: req.body.rack_ids,
     sweep_config: req.body.sweep_config,
     rack_size: req.body.rack_size
