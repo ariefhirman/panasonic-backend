@@ -87,6 +87,10 @@ app.post('/api/v1/upload', upload.single('file'), (req, res) => {
       fs.unlink(filesDir + '/' + fileName, (err) => {
           if (err) {
               console.log(err);
+              return res.send({
+                success: false,
+                error: err
+              })
           }
           // console.log('deleted');
       })
