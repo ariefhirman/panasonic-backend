@@ -111,10 +111,10 @@ exports.create = (req, res) => {
     mission_speed: req.body.mission_speed,
     max_altitude: req.body.max_altitude,
     min_altitude: req.body.min_altitude,
-    orientation: req.body.orientation,
+    turning_point: req.body.turning_point,
     rack_ids: req.body.rack_ids,
+    orientation: req.body.orientation,
     sweep_config: req.body.sweep_config,
-    rack_size: req.body.rack_size
   });
 
   // Save Data in the database
